@@ -1,5 +1,5 @@
 <template>
-  <form @submit.prevent="handleSubmit">
+  <form @submit.prevent="handleUp">
     <h3>Sign up</h3>
 
     <label for="email">Email:</label>
@@ -10,15 +10,30 @@
 
     <button>Sign up</button>
   </form>
+  <div v-if="error">{{ error }}</div>
 </template>
 
 <script setup>
 import { ref } from "vue";
+import { useStore } from "vuex";
+import { useRouter } from "vue-router";
+
+const store = useStore();
+const router = useRouter();
 
 const email = ref("");
 const password = ref("");
+const error = ref(null);
 
-const handleSubmit = () => {
-  console.log(email.value, password.value);
+const handleUp = async () => {
+  try {
+    await store.dispatch("singUp", {
+      email: email.value,
+      password: password.value,
+    });
+    router.push({ name: "home" });
+  } catch (err) {
+    error.value = err.message;
+  }
 };
 </script>

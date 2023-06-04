@@ -30,6 +30,5 @@ const blogs = ref([
 
 const store = useStore();
 
-store.commit("addUsers", "abdou");
 console.log(store.state.users);
 </script>

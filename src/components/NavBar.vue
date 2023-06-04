@@ -8,7 +8,7 @@
     <!--  logged in user -->
     <div>
       <span>Logged in as...</span>
-      <button>Logout</button>
+      <button @click="handelOut()">Logout</button>
     </div>
     <!--  logged out user -->
     <div>
@@ -17,3 +17,12 @@
     </div>
   </nav>
 </template>
+
+<script setup>
+import { useStore } from "vuex";
+const store = useStore();
+
+const handelOut = async () => {
+  await store.dispatch("logout");
+};
+</script>
